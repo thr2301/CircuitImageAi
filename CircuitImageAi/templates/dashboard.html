@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Circuit AI Dashboard</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="container">
+    <aside class="sidebar">
+      <h2>Circuit AI</h2>
+      <nav>
+        <button onclick="startTraining()">📈 Train Model</button>
+        <label class="file-upload">
+          <input type="file" id="fileInput"> 📂 Choose Image
+        </label>
+        <button onclick="predict()">🤖 Predict</button>
+        <button class="logout" onclick="logout()">🚪 Logout</button>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <h1>Dashboard</h1>
+      <div class="panel">
+        <h3>Training Logs</h3>
+        <div class="terminal">
+          <pre id="output"></pre>
+        </div>
+        <div class="progress-container">
+          <div id="progress-bar"></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h3>Prediction Result</h3>
+        <div id="prediction"></div>
+      </div>
+    </main>
+  </div>
+  <script src="/static/script.js"></script>
+</body>
+</html>
