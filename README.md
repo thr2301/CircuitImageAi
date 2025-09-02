@@ -24,7 +24,7 @@ A deep learning web application built with **PyTorch** + **FastAPI** that can **
 ## 📂 Project Structure  
 
 ```
-circuit_ai/
+CircuitImageAi/
 │── app.py                # FastAPI backend
 │── model.py              # CNN model definition
 │── static/
@@ -99,7 +99,7 @@ dataset/
     └── other/
 ```
 
-⚠️ Place **at least 20–30 images per class** in `train/` and **5–10 images per class** in `test/` for decent results.  
+⚠️ Place **at least 20–30 images per class** in `train/` and **2-5 images per class** in `test/` for decent results.  
 
 ---
 
