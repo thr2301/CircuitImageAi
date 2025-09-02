@@ -106,15 +106,19 @@ dataset/
 ## 🧑‍💻 Usage  
 
 1. **Register/Login**  
-   - Register a new account or login with existing credentials.  
+   - Register a new account or login with existing credentials.
+   - <img width="1920" height="1080" alt="Image" src="https://github.com/user-attachments/assets/a7c84e0b-411a-4107-a27f-aeef1fc691b1" />
 
 2. **Training**  
-   - Start training from the dashboard.  
+   - Start training from the dashboard.
+   -  <img width="1920" height="1080" alt="Image" src="https://github.com/user-attachments/assets/2c3d0f23-a7fa-4daf-a761-eeba537be31d" />
    - Monitor **loss & accuracy per epoch** in real time.  
 
 3. **Prediction**  
-   - Upload an image of a circuit.  
-   - Get the **predicted class + confidence percentage** instantly.  
+   - Upload an image of a circuit.
+   - <img width="1920" height="1080" alt="Image" src="https://github.com/user-attachments/assets/c31609f7-6274-417e-ae68-ae2c6c40020a" />
+   - Get the **predicted class + confidence percentage** instantly.
+   - <img width="1920" height="1080" alt="Image" src="https://github.com/user-attachments/assets/1a98819a-0b6a-4417-b043-8bf024d315c7" />
 
 ---
 
@@ -140,10 +144,3 @@ python-multipart
 
 ---
 
-## 🖼️ Demo Screenshots  
-
-- **Login Page:** `screenshots/login.png`  
-- **Training in Progress:** `screenshots/training.png`  
-- **Prediction Result:** `screenshots/prediction.png`  
-
-*(Create a `screenshots/` folder in your repo and add your PNG images there)*  
