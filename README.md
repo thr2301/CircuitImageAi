@@ -56,19 +56,11 @@ circuit_ai/
 1. **Clone the repo**  
 
 ```bash
-git clone https://github.com/your-username/circuit_ai.git
-cd circuit_ai
+git clone https://github.com/your-username/CircuitImageAi.git
+cd CircuitImageAi
 ```
 
-2. **Create virtual environment (optional but recommended)**  
-
-```bash
-python -m venv venv
-source venv/bin/activate  # Linux/Mac
-venv\Scriptsctivate     # Windows
-```
-
-3. **Install dependencies**  
+2. **Install dependencies**  
 
 ```bash
 pip install -r requirements.txt
@@ -143,10 +135,8 @@ python-multipart
 
 ## ✅ To-Do  
 
-- [ ] Add model evaluation on test dataset from dashboard  
-- [ ] Add accuracy/loss graphs instead of text logs  
-- [ ] Improve user registration with password hashing  
-- [ ] Deploy online with Docker or Render/Heroku  
+- [ ] Add more circuits 
+- [ ] Add prediction for the values of the circuit components 
 
 ---
 
