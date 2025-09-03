@@ -140,7 +140,9 @@ python-multipart
 ## ✅ To-Do  
 
 - [ ] Add more circuits 
-- [ ] Add prediction for the values of the circuit components 
+- [ ] Add prediction for the values of the circuit components
+- [ ] Add an option the output produce a netlist 
+
 
 ---
 
