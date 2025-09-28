@@ -4,3 +4,7 @@ torch
 torchvision
 pillow
 python-multipart
+sqlalchemy
+pymysql
+passlib[bcrypt]
+cryptography
