@@ -99,6 +99,17 @@ Insisde the helpers folder there are to subfolders with some datasets , one big 
 
 ---
 
+### Configure the Database
+
+1. **Create a MySQL Database:**
+   Create a MySQL database to store the data for the Circuit Image Ai.
+
+2. **Update Database Connection Settings:**
+   Open the app.py .
+   Update the database connection settings in this file to match your MySQL database configuration.
+   Example:
+   DATABASE_URL = "mysql+pymysql://username:password@localhost:3306/circuitai"
+
 ## 🧑‍💻 Usage  
 
 1. **Register/Login**  
