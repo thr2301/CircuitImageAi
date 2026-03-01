@@ -6,7 +6,7 @@
 [![PyTorch](https://img.shields.io/badge/PyTorch-1.12+-EE4C2C?logo=pytorch)](https://pytorch.org/)  
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)  
 
-A deep learning web application built with **PyTorch** + **FastAPI** that can **train, evaluate, and predict electronic circuits** (Amplifier, RC Highpass, RC Lowpass, Other) directly from a **user-friendly dashboard** , calculates the values of the passive elements and creates a netlist.  
+A deep learning web application built with **PyTorch** + **FastAPI** that can **train, evaluate, and predict electronic circuits** (Amplifier, RC Highpass, RC Lowpass, Resonator, Other) directly from a **user-friendly dashboard** , calculates the values of the passive elements and creates a netlist.  
 
 ---
 
@@ -41,6 +41,7 @@ CircuitImageAi/
 │      ├── amplifier/
 │      ├── rc_lp/
 │      ├── rc_hp/
+│      ├── resonator/
 │      └── other/
 │── models/               # Here are saved some previous trainings
 │── images/               # Some images for testing 
@@ -90,6 +91,7 @@ dataset/
    ├── amplifier/   # training images
    ├── rc_lp/
    ├── rc_hp/
+   ├── resonator/
    └── other/
 
 ```
@@ -100,15 +102,7 @@ Insisde the helpers folder there are to subfolders with some datasets , one big 
 ---
 
 ### Configure the Database
-
-1. **Create a MySQL Database:**
-   Create a MySQL database to store the data for the Circuit Image Ai.
-
-2. **Update Database Connection Settings:**
-   Open the app.py .
-   Update the database connection settings in this file to match your MySQL database configuration.
-   Example:
-   DATABASE_URL = "mysql+pymysql://username:password@localhost:3306/circuitai"
+The credentilas are stored in a json file that is called users.json .
 
 ## 🧑‍💻 Usage  
 
@@ -119,7 +113,7 @@ Insisde the helpers folder there are to subfolders with some datasets , one big 
    - <img width="1920" height="1043" alt="Image" src="https://github.com/user-attachments/assets/b235ebe1-f45a-40f9-8283-c0f6900661e0" />
 
 2. **Training**  
-   - Start training from the dashboard.
+   - Start training or continue a previous one from the dashboard.
    - <img width="1920" height="1046" alt="Image" src="https://github.com/user-attachments/assets/d4572b61-9919-4f36-9e95-4a3135ddbac8" />
    - Monitor **loss & accuracy per epoch** in real time.
    - Or you can load a previous training.
@@ -130,10 +124,24 @@ Insisde the helpers folder there are to subfolders with some datasets , one big 
    - <img width="1920" height="1045" alt="Image" src="https://github.com/user-attachments/assets/8cfc3036-0721-4c26-9261-439cf9a14460" />
    - Get the **predicted class + confidence percentage** instantly.
    - <img width="1920" height="1039" alt="Image" src="https://github.com/user-attachments/assets/899d3eb0-e862-4cce-a6db-9e160dff881b" />
+   
+   - In case of filter :
    - Enter the cutoff frequency.
-   - Click calculate RC Values
-   - Click produce netlist
+   - Click Compute & plot
+   - Fill the Library and cell name
+   - Click Download Netlist
+   - <img width="1920" height="1080" alt="Image" src="https://github.com/user-attachments/assets/dc77afee-6a49-4f2a-aa05-4172d82a2ba6" />
 
+   - In case of resonator
+   - Choose vowel
+   - Click Load & plot
+   - Fill the Library & Cell name
+   - Click DownLoad Netlist
+   - <img width="1920" height="1080" alt="Image" src="https://github.com/user-attachments/assets/a79bd09d-fb58-41dc-8579-96dc753604c9" /> 
+     
+5. **Settings**
+   - Here the User can change his email, phone number or add a new password
+   - <img width="1920" height="1080" alt="Image" src="https://github.com/user-attachments/assets/7d678658-0316-4256-9273-e91a33ee9af6" />
 ---
 
 ## 📌 Requirements  
@@ -147,8 +155,6 @@ torch
 torchvision
 pillow
 python-multipart
-sqlalchemy
-pymysql
 passlib[bcrypt]
 cryptography
 ```
