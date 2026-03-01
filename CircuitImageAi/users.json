@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "username": "admin",
+    "password": "$2b$12$KitfkXGJc7U4eD7atTDqYuPTTzgxb830VViLPVUt0zI2sXgRuTkCO",
+    "email": null,
+    "phone": null
+  },
+  {
+    "id": 2,
+    "username": "admin1",
+    "password": "$2b$12$L3wwja.OKqs8ELjChiufKeedekUrHl1RNtRPtrktFbYQ0HX/iIpQy",
+    "email": null,
+    "phone": null
+  },
+  {
+    "id": 3,
+    "username": "admin2",
+    "password": "$2b$12$lJTd.bPlfOofmkZ9LVjB0.hj4KVFezl6zV5VdYgE5pSAEIvGzto7O",
+    "email": null,
+    "phone": null
+  },
+  {
+    "id": 4,
+    "username": "admin3",
+    "password": "$2b$12$wvn0DdggkyHJMJpe8RH9w.7jAkAsuRwLpP.qN6VoHVZugkSrao2rS",
+    "email": null,
+    "phone": null
+  },
+  {
+    "id": 5,
+    "username": "th",
+    "password": "$2b$12$/9O2N2HU4j0QI9b0dbp9xuLgVMMPMTJztll6lCuVkTbDVg075Yzs6",
+    "email": "thanasis2301@gmail.com",
+    "phone": ""
+  },
+  {
+    "id": 6,
+    "username": "ewer",
+    "password": "$2b$12$uGD5fq8y70CdiuGCeAnhz.dxaqnpmP7rP3EyT0qd0B.WRzWn8JgTq",
+    "email": "qw@gmail.com",
+    "phone": ""
+  }
+]
