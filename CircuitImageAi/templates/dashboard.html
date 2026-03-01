@@ -4,104 +4,150 @@
   <title>Circuit AI Dashboard</title>
   <link rel="stylesheet" href="/static/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+<body>
   <div class="container">
     <aside class="sidebar">
       <h2>Circuit AI</h2>
       <nav>
-        <button onclick="startTraining()">📈 Train Model</button>
+        <button onclick="showPanel('dashboard')">🏠 Mainmenu</button>
+        
+        <button onclick="startTraining()">⚡ Train Model</button>
+        <button id="resume-train-btn" onclick="resumeTraining()">⏩ Continue Training</button>
+
         <label class="file-upload">
           <input type="file" id="fileInput"> 📂 Choose Image
         </label>
-        <button onclick="predict()">🤖 Predict</button>
-        <button class="logout" onclick="logout()">🚪 Logout</button>
-        <div class="social-bar2">
+        <button onclick="predict()">🔍 Predict</button>
+
+        <button onclick="showPanel('settings')">⚙️ Settings</button>
+
+        <button class="logout" onclick="window.location.href='/logout'">🚪 Logout</button>
+      </nav>
+      <div class="social-bar2">
           <a href="https://www.linkedin.com/in/athanasios-roudis-3a2932260/" target="_blank"><i class="fab fa-linkedin"></i></a>
           <a href="https://github.com/thr2301" target="_blank"><i class="fab fa-github"></i></a>
           <a href="https://instagram.com/th_roudis" target="_blank"><i class="fab fa-instagram"></i></a>
           <a href="https://facebook.com/thanos.roudis" target="_blank"><i class="fab fa-facebook"></i></a>
-        </div>
-      </nav>
+      </div>
     </aside>
+    
     <main class="main">
       <h1>Dashboard</h1>
-      <div class="panel">
-        <h3>Training Logs</h3>
-        <div class="terminal">
-          <pre id="training-log"></pre>
-        </div>
-        <div class="progress-container">
-          <div id="progress-bar"></div>
-        </div>
-      </div>
-      <div class="panel">
-  <h3>Model Management</h3>
-  <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
-    <button class="btn" onclick="loadDefaultModel()">Load best_model.pth</button>
+      
+      <div id="main-dashboard-view">
+          <div class="panel" id="training-panel">
+            <h3>Training Logs</h3>
+            <div class="terminal">
+              <pre id="training-log"></pre>
+            </div>
+            <div class="progress-container">
+              <div id="progress-bar"></div>
+            </div>
+          </div>
 
-    <button class="btn"><label class="file-upload" style="margin:0;">
-      <input type="file" id="modelFile"> 📦 Choose .pth
-    </label></button>
-    <button class="btn" onclick="uploadModel()">Load uploaded .pth</button>
-  </div>
-  <div id="model-status" style="margin-top:10px; font-weight:600;"></div>
-</div>
-      <div class="panel">
-        <h3>Prediction Result</h3>
-        <div id="prediction"></div>
+          <div class="panel" id="model-panel">
+            <h3>Model Management</h3>
+            <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+                <button class="btn" onclick="loadDefaultModel()">Load best_model.pth</button>
+                <button class="btn"><label class="file-upload" style="margin:0;">
+                    <input type="file" id="modelFile"> 📁 Choose .pth
+                </label></button>
+                <button class="btn" onclick="uploadModel()">Load uploaded .pth</button>
+            </div>
+            <div id="model-status" style="margin-top:10px; font-weight:600;"></div>
+          </div>
+
+          <div class="panel" id="prediction-panel">
+            <h3>Prediction Result</h3>
+            <div id="prediction">Waiting for prediction...</div>
+            <div id="detected-chip" class="chip" style="display:none;"></div>
+          </div>
       </div>
+      <div class="panel" id="settings-panel" style="display:none;">
+        <h3>User Settings</h3>
+        <form action="/update_profile" method="POST">
+            <div class="designer-grid">
+                <label>Email Address
+                    <input type="email" name="email" value="{{ user.email }}" required>
+                </label>
+                <label>Phone Number
+                    <input type="text" name="phone" value="{{ user.phone }}">
+                </label>
+                <label>New Password (leave blank to keep current)
+                    <input type="password" name="new_password" placeholder="********">
+                </label>
+            </div>
+            <button type="submit" class="btn" style="margin-top:15px;">Update Profile</button>
+        </form>
+      </div>
+
+      <div class="panel" id="unified-design-panel" style="display:none;">
+        <h3 id="design-title">Design Parameters</h3>
+        
+        <div id="rc-inputs" style="display:none;">
+           <div class="designer-grid">
+             <label>Cutoff frequency (Hz) <input type="number" id="fc-input" placeholder="e.g. 1000"></label>
+             <label>Known value
+               <select id="known-select">
+                 <option value="auto">Auto (C=100nF)</option>
+                 <option value="R">I know R (Ω)</option>
+                 <option value="C">I know C (F)</option>
+               </select>
+             </label>
+             <label>R (Ohms) <input type="number" id="r-input" disabled></label>
+             <label>C (Farads) <input type="number" id="c-input" disabled></label>
+           </div>
+           <div style="margin-top:15px; display:flex; gap:10px;">
+                <button class="btn" onclick="computeDesignRC()">Compute & Plot</button>
+           </div>
+        </div>
+
+        <div id="res-inputs" style="display:none;">
+            <div style="background:#f4f9f4; padding:20px; border-radius:10px; border:1px solid #c3e6cb;">
+                <h4 style="margin-bottom:10px; color:#218838;">Select a Vowel</h4>
+                <p style="font-size:14px; color:#555; margin-bottom:15px;">
+                    Choose a vowel to load its pre-calculated Formant Resonator circuit (R, C, Q, f0) from the library.
+                </p>
+                
+                <div style="display:flex; gap:15px; align-items:center;">
+                    <select id="vowel-select" style="padding:10px; font-size:16px; border-radius:6px; min-width:200px; border:1px solid #ccc;">
+                        <option value="" disabled selected>-- Select Vowel --</option>
+                        </select>
+                    <button class="btn" onclick="loadVowelData()">Load & Plot</button>
+                </div>
+            </div>
+        </div>
+
+        <h4 style="margin-top:20px;">Netlist settings</h4>
+        <div class="designer-grid">
+            <label>Format
+                <select id="nl-format">
+                    <option value="spectre">Spectre (.scs)</option>
+                    <option value="spice">SPICE (.cir)</option>
+                </select>
+            </label>
+            <label>Library name <input type="text" id="nl-lib" placeholder="thesis_prj"></label>
+            <label>Cell name <input type="text" id="nl-cell" placeholder="test"></label>
+            <label>View name <input type="text" id="nl-view" value="schematic"></label>
+        </div>
+
+        <div id="results-area" style="margin-top:20px; display:none;">
+            <div style="display:flex; flex-wrap:wrap; gap:20px;">
+                <div id="text-results" style="flex:1; min-width:250px; background:#f8f9fa; padding:15px; border-radius:8px; font-size:14px; line-height:1.5;"></div>
+                
+                <div style="flex:2; min-width:300px; height:350px;">
+                    <canvas id="bodeChart"></canvas>
+                </div>
+            </div>
+            
+            <button class="btn" onclick="downloadNetlist()" style="margin-top:15px; background:#34495e;">Download Netlist</button>
+        </div>
+      </div>
+
     </main>
   </div>
-  <div class="panel" id="rc-designer" style="display:none;">
-  <h3>RC Filter Designer</h3>
-  <div style="margin-bottom:10px;">
-    <div><strong>Detected filter:</strong> <span id="rc-type-chip" class="chip">—</span></div>
-  </div>
-  <div class="designer-grid">
-    <label>Cutoff frequency (Hz)
-      <input type="number" id="fc-input" min="0" step="0.01" placeholder="e.g. 1000">
-    </label>
-
-    <label>Known value
-      <select id="known-select">
-        <option value="auto">Auto (C=100 nF)</option>
-        <option value="R">I know R (Ω)</option>
-        <option value="C">I know C (F)</option>
-      </select>
-    </label>
-
-    <label>R (Ohms)
-      <input type="number" id="r-input" min="0" step="0.01" placeholder="e.g. 10000" disabled>
-    </label>
-
-    <label>C (Farads)
-      <input type="number" id="c-input" min="0" step="1e-12" placeholder="e.g. 1e-7" disabled>
-    </label>
-
-    <label>Quality factor (Q) <small style="opacity:.7">(ignored for 1st-order)</small>
-      <input type="number" id="q-input" min="0" step="0.01" placeholder="optional">
-    </label>
-  </div>
-<h4 style="margin-top:12px;">Netlist settings (Spectre)</h4>
-<div class="designer-grid">
-  <label>Library name
-    <input type="text" id="nl-lib" placeholder="e.g. thesis_prj">
-  </label>
-  <label>Cell name
-    <input type="text" id="nl-cell" placeholder="e.g. test">
-  </label>
-  <label>View name
-    <input type="text" id="nl-view" placeholder="schematic">
-  </label>
-</div>
-  <div style="margin-top:10px; display:flex; gap:10px; flex-wrap:nowrap;">
-  <button class="btn" onclick="computeRC()">Compute R & C</button>
-  <button class="btn" id="dl-netlist-btn" onclick="downloadNetlist()" disabled>
-    Download SPICE Netlist
-  </button>
-</div>
-  <div id="rc-result" class="rc-result" style="display:none; margin-top:10px;"></div> 
-</div>
-  <script src="/static/script.js"></script>
+  <script src="/static/script.js?v=9"></script>
 </body>
 </html>
