@@ -114,16 +114,13 @@ The credentilas are stored in a json file that is called users.json .
 
 2. **Training**  
    - Start training or continue a previous one from the dashboard.
-   - <img width="1920" height="1046" alt="Image" src="https://github.com/user-attachments/assets/d4572b61-9919-4f36-9e95-4a3135ddbac8" />
+   - <img width="1920" height="913" alt="Image" src="https://github.com/user-attachments/assets/df13d68a-2253-47af-950b-78438c638c82" />
    - Monitor **loss & accuracy per epoch** in real time.
    - Or you can load a previous training.
-   - <img width="1920" height="1043" alt="Image" src="https://github.com/user-attachments/assets/4c72cfb5-1f2c-4619-bd96-b777ae02588a" /> 
 
 3. **Prediction**  
    - Upload an image of a circuit.
-   - <img width="1920" height="1045" alt="Image" src="https://github.com/user-attachments/assets/8cfc3036-0721-4c26-9261-439cf9a14460" />
    - Get the **predicted class + confidence percentage** instantly.
-   
    - In case of filter :
    - Enter the cutoff frequency.
    - Click Compute & plot
@@ -140,7 +137,7 @@ The credentilas are stored in a json file that is called users.json .
      
 5. **Settings**
    - Here the User can change his email, phone number or add a new password
-   - <img width="1920" height="1080" alt="Image" src="https://github.com/user-attachments/assets/7d678658-0316-4256-9273-e91a33ee9af6" />
+   - <img width="1920" height="1080" alt="Image" src="https://github.com/user-attachments/assets/35afeb26-29dc-49fe-8580-0af216eb5550" />
 ---
 
 ## 📌 Requirements  
