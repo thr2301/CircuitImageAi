@@ -123,7 +123,6 @@ The credentilas are stored in a json file that is called users.json .
    - Upload an image of a circuit.
    - <img width="1920" height="1045" alt="Image" src="https://github.com/user-attachments/assets/8cfc3036-0721-4c26-9261-439cf9a14460" />
    - Get the **predicted class + confidence percentage** instantly.
-   - <img width="1920" height="1039" alt="Image" src="https://github.com/user-attachments/assets/899d3eb0-e862-4cce-a6db-9e160dff881b" />
    
    - In case of filter :
    - Enter the cutoff frequency.
