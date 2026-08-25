@@ -8,3 +8,4 @@ sqlalchemy
 pymysql
 passlib[bcrypt]
 cryptography
+starlette<1.0.0
