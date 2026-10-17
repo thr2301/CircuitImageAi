@@ -26,16 +26,31 @@ A deep learning web application built with **PyTorch** + **FastAPI** that can **
 
 ```
 CircuitImageAi/
-│── app.py                # FastAPI backend
+│── main.py
+│── core/
+│   │── __init__.py
+│   └── utils.py
+│── routers/
+│   │── __init__.py
+│   ├── auth.py
+│   ├── engineering.py 
+│   └── ml_routes.py
+│── services/
+│   │── __init__.py
+│   ├── ml_manager.py
+│   ├── netlist_exporter.py 
+│   └── user_repo.py      
 │── static/
-│   ├── images.jpg        # Background image
-│   ├── login.html        # Login & Register UI
-│   ├── style.css         # Styling
-│   └── script.js         # Frontend logic
+│   ├── images.jpg        
+│   ├── login.html        
+│   ├── style.css         
+│   └── script.js       
 │── templates/
-│   ├── login.html        # Login UI
-│   ├── dashboard.html    # Dashboard UI
-│   └── register.html     # Register UI
+│   ├── calculator.html         
+│   ├── forgot_password.html    
+│   ├── login.html             
+│   ├── dashboard.html         
+│   └── register.html         
 │── dataset/
 │   ├── train/
 │      ├── amplifier/
@@ -43,10 +58,10 @@ CircuitImageAi/
 │      ├── rc_hp/
 │      ├── resonator/
 │      └── other/
-│── models/               # Here are saved some previous trainings
-│── images/               # Some images for testing 
-│── requirements.txt      # Dependencies
-└── README.md             # Documentation
+│── models/               
+│── images/             
+│── requirements.txt      
+└── README.md            
 ```
 
 ---
@@ -73,7 +88,7 @@ pip install -r requirements.txt
 Start the FastAPI server:  
 
 ```bash
-uvicorn app:app --reload
+uvicorn main:app --reload
 ```
 
 Open your browser:  
@@ -114,7 +129,7 @@ The credentilas are stored in a json file that is called users.json .
 
 2. **Training**  
    - Start training or continue a previous one from the dashboard.
-   - <img width="1920" height="913" alt="Image" src="https://github.com/user-attachments/assets/df13d68a-2253-47af-950b-78438c638c82" />
+   - <img width="1901" height="902" alt="Image" src="https://github.com/user-attachments/assets/37e947c3-3994-4726-84f4-d684a7fe75a9" />
    - Monitor **loss & accuracy per epoch** in real time.
    - Or you can load a previous training.
 
@@ -126,18 +141,25 @@ The credentilas are stored in a json file that is called users.json .
    - Click Compute & plot
    - Fill the Library and cell name
    - Click Download Netlist
-   - <img width="1920" height="1080" alt="Image" src="https://github.com/user-attachments/assets/dc77afee-6a49-4f2a-aa05-4172d82a2ba6" />
+   - <img width="1905" height="900" alt="Image" src="https://github.com/user-attachments/assets/28078761-e8b3-4f95-9630-cf4775e971fd" />
 
    - In case of resonator
    - Choose vowel
    - Click Load & plot
    - Fill the Library & Cell name
    - Click DownLoad Netlist
-   - <img width="1920" height="1080" alt="Image" src="https://github.com/user-attachments/assets/a79bd09d-fb58-41dc-8579-96dc753604c9" /> 
+   - <img width="1904" height="896" alt="Image" src="https://github.com/user-attachments/assets/853d2b41-a1b0-4e14-a287-8e3ec0a06808" />
+   - <img width="1905" height="903" alt="Image" src="https://github.com/user-attachments/assets/02cf0a9c-01ae-4024-83bb-13e76bf110a4" />
      
 5. **Settings**
    - Here the User can change his email, phone number or add a new password
-   - <img width="1920" height="1080" alt="Image" src="https://github.com/user-attachments/assets/35afeb26-29dc-49fe-8580-0af216eb5550" />
+   - <img width="1914" height="888" alt="Image" src="https://github.com/user-attachments/assets/9445c1f5-b14b-4ade-8016-92ee48b245b2" />
+   - <img width="1896" height="895" alt="Image" src="https://github.com/user-attachments/assets/c53bbb2e-524f-4640-8521-89fcabcff0a7" />
+
+6. **Filter Calculator**
+   - <img width="1900" height="895" alt="Image" src="https://github.com/user-attachments/assets/9ed6846c-ef79-4e39-8453-50b35c5b64d3" />
+   - <img width="1882" height="893" alt="Image" src="https://github.com/user-attachments/assets/b2318ba3-d88b-4125-94ad-5747c615f166" />
+   - <img width="1912" height="902" alt="Image" src="https://github.com/user-attachments/assets/8dfd7643-b8dc-4e4f-be96-6f28e281fd3a" />
 ---
 
 ## 📌 Requirements  
@@ -146,11 +168,15 @@ Add these to **requirements.txt**:
 
 ```
 fastapi
+fastapi-mail
+Its dangerous
 uvicorn
 torch
 torchvision
 pillow
 python-multipart
+sqlalchemy
+pymysql
 passlib[bcrypt]
 cryptography
 ```
@@ -159,7 +185,8 @@ cryptography
 
 ## ✅ To-Do  
 
-- [ ] Add more circuits 
+- [ ] Add more circuits
+- [ ] Fix netlist production
 
 
 
