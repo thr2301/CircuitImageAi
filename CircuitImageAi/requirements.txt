@@ -1,4 +1,6 @@
 fastapi
+fastapi-mail
+Its dangerous
 uvicorn
 torch
 torchvision
@@ -8,4 +10,3 @@ sqlalchemy
 pymysql
 passlib[bcrypt]
 cryptography
-starlette<1.0.0
