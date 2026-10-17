@@ -1,0 +1,276 @@
+/* STREAMING_CHUNK:Configuring the basic reset and body styles... */
+
+*{
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+font-family: "Segoe UI", Tahoma, sans-serif;
+background-image: url('images.jpg');
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;
+background-attachment: fixed;
+color: #333;
+display: flex;
+min-height: 100vh;
+flex-direction: column;
+}
+
+/* STREAMING_CHUNK:Styling the authentication containers... */
+.auth-container {
+display: flex;
+align-items: center;
+justify-content: center;
+flex: 1;
+width: 100%;
+padding: 20px;
+}
+
+.login-box, .Register-box {
+background: rgba(255, 255, 255, 0.95);
+padding: 30px;
+border-radius: 10px;
+width: 100%;
+max-width: 400px;
+box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+text-align: center;
+}
+
+/* STREAMING_CHUNK:Styling inputs and buttons for the auth pages... */
+.login-box h2, .Register-box h2 {
+margin-bottom: 20px;
+color: #2c3e50;
+}
+
+.login-box input, .Register-box input, .login-box form input[type="email"] {
+width: 100%;
+padding: 12px;
+margin: 10px 0;
+border-radius: 6px;
+border: 1px solid #ccc;
+}
+
+.login-box button, .Register-box button {
+width: 100%;
+padding: 12px;
+margin-top: 10px;
+background: #1abc9c;
+color: white;
+border: none;
+border-radius: 6px;
+font-size: 16px;
+cursor: pointer;
+transition: background 0.3s;
+}
+
+.login-box button:hover, .Register-box button:hover {
+background: #16a085;
+}
+
+.login-box p, .Register-box p {
+margin-top: 15px;
+}
+
+/* STREAMING_CHUNK:Setting up the main layout and sidebar for mobile... */
+.container {
+display: flex;
+flex-direction: column;
+width: 100%;
+min-height: 100vh;
+}
+
+.sidebar {
+width: 120%;
+background: #2c3e50;
+color: white;
+padding: 20px;
+display: flex;
+flex-direction: column;
+}
+
+.sidebar h2 {
+text-align: center;
+margin-bottom: 20px;
+}
+
+/* STREAMING_CHUNK:Styling the sidebar navigation buttons... */
+.sidebar nav {
+display: flex;
+flex-wrap: wrap;
+gap: 10px;
+justify-content: center;
+}
+
+.sidebar nav button, .sidebar nav label {
+flex: 1 1 auto;
+min-width: 160px;
+margin: 0;
+padding: 12px;
+background: #34495e;
+border: none;
+border-radius: 8px;
+color: white;
+font-size: 14px;
+text-align: center;
+cursor: pointer;
+transition: background 0.3s;
+}
+
+.sidebar nav button:hover, .sidebar nav label:hover { background: #1abc9c; }
+.sidebar nav .logout { background: #e74c3c; }
+.sidebar nav .logout:hover { background: #c0392b; }
+.file-upload input[type="file"] { display: none; }
+.file-upload { cursor: pointer; }
+
+/* STREAMING_CHUNK:Styling the main content area and panels... */
+.main {
+flex: 1;
+padding: 15px;
+overflow-y: auto;
+background: rgba(255, 255, 255, 0.9);
+}
+
+.main h1 {
+margin-bottom: 20px;
+font-size: 22px;
+color: #2c3e50;
+}
+
+.panel {
+background: #fff;
+padding: 15px;
+margin-bottom: 20px;
+border-radius: 8px;
+box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* STREAMING_CHUNK:Styling the terminal, progress bars, and basic components... */
+.terminal {
+background: #111;
+border-radius: 8px;
+padding: 10px;
+height: 200px;
+overflow-y: auto;
+}
+
+.terminal pre {
+color: #0f0;
+font-family: "Courier New", monospace;
+font-size: 12px;
+white-space: pre-wrap;
+}
+
+.progress-container {
+width: 100%;
+background: #ccc;
+border-radius: 10px;
+margin-top: 10px;
+height: 20px;
+overflow: hidden;
+}
+
+#progress-bar {
+height: 100%;
+width: 0;
+background: #1abc9c;
+border-radius: 10px;
+transition: width 0.3s;
+}
+
+#prediction {
+font-size: 16px;
+font-weight: bold;
+padding: 10px;
+border-radius: 6px;
+color: #333;
+background: #eee;
+}
+
+/* STREAMING_CHUNK:Defining styles for chips, buttons, and form grids... */
+.chip { display:inline-block; padding:4px 10px; border-radius:12px; background:#eee; font-weight:600; margin-top: 10px; }
+.btn { padding:10px 14px; border:none; border-radius:8px; background:#1abc9c; color:#fff; cursor:pointer; }
+.btn:hover { background:#17a085; }
+.btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.designer-grid {
+display: grid;
+grid-template-columns: 1fr;
+gap: 15px;
+margin-top: 15px;
+}
+
+.designer-grid label { display:flex; flex-direction:column; gap:6px; font-size:14px; font-weight: 500;}
+.designer-grid input, .designer-grid select { padding:10px; border-radius:6px; border:1px solid #ccc; width: 100%;}
+.rc-result { background:#f7f9fb; border:1px solid #d9e3ea; padding:15px; border-radius:8px; overflow-wrap: break-word; }
+
+/* STREAMING_CHUNK:Styling the social icon bars to be flexible... */
+.social-bar, .social-bar2 {
+display: flex;
+justify-content: center;
+gap: 15px;
+margin-top: 25px;
+flex-wrap: wrap;
+}
+
+.social-bar2 {
+margin-top: auto;
+padding-top: 30px;
+}
+
+.social-bar a, .social-bar2 a {
+color: #fff;
+background: #2c3e50;
+border-radius: 50%;
+font-size: 20px;
+width: 44px;
+height: 44px;
+display: flex;
+align-items: center;
+justify-content: center;
+text-decoration: none;
+transition: all 0.3s ease;
+}
+
+.social-bar a:hover, .social-bar2 a:hover {
+background: #1abc9c;
+transform: translateY(-3px);
+}
+
+/* STREAMING_CHUNK:Applying media queries for tablet and desktop views... */
+@media (min-width: 768px) {
+.container {
+flex-direction: row;
+overflow: hidden;
+}
+
+.sidebar {
+width: 250px;
+height: 100vh;
+overflow-y: auto;
+}
+
+.sidebar nav {
+flex-direction: column;
+flex-wrap: nowrap;
+}
+
+.sidebar nav button, .sidebar nav label {
+text-align: left;
+}
+
+.main {
+padding: 30px;
+height: 100vh;
+}
+
+.main h1 { font-size: 26px; }
+.terminal { height: 300px; }
+
+.designer-grid {
+grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+}

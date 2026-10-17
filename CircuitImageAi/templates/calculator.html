@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Active Filter Synthesizer</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <div class="container">
+        <main class="main standalone-main">
+            <h1>Active Filter Synthesizer</h1>
+            <p style="color: #050000; margin-bottom: 20px; font-size: 15px;">Calculate exact component values (Unequal Resistors/Capacitors) for Unity-Gain Sallen-Key topologies.</p>
+            
+            <div class="panel">
+                <div id="errorBox" class="error"></div>
+
+                <form id="calcForm">
+                    <div class="designer-grid">
+                        <label>Target Frequency (fc) in Hz:
+                            <input type="number" id="frequency" value="1000" step="any" required>
+                        </label>
+                        <label>Base Capacitor (Farads):
+                            <input type="number" id="cBase" value="0.00000001" step="any" required>
+                            <small style="color:#888; font-weight: normal; margin-top: 4px;">e.g., 0.00000001 for 10nF</small>
+                        </label>
+                        <label>Filter Type:
+                            <select id="filterType">
+                                <option value="lowpass">Low-pass</option>
+                                <option value="highpass">High-pass</option>
+                                <option value="bandpass">Band-pass</option>
+                                <option value="notch">Notch (Band-stop)</option>
+                                <option value="allpass">All-pass</option>
+                            </select>
+                        </label>
+                        <label>Order (N):
+                            <input type="number" id="order" value="2" min="1" max="10" required>
+                        </label>
+                        <label id="qGroup">Q-Factor:
+                            <input type="number" id="qFactor" value="0.707" step="0.001" min="0.1" required>
+                        </label>
+                    </div>
+                    <button type="submit" class="btn" id="submitBtn" style="width: 20%; padding: 12px; margin: 10px auto 0; display: block; font-size: 16px; font-weight: bold;">
+                        Synthesize Circuit & Plot
+                    </button>
+                </form>
+            </div>
+            <div id="results" class="panel" style="display: none;">
+                <h2 style="color: #2c3e50; margin-bottom: 15px; font-size: 22px;">Synthesis Results</h2>
+                <div class="rc-result" style="margin-bottom: 20px;">
+                    <strong style="color: #2c3e50;">Transfer Function:</strong> 
+                    <code id="tfValue" style="display:block; padding:10px; background:#fff; border:1px solid #ccc; margin-top:8px; border-radius: 4px; color: #e74c3c;"></code>
+                </div>
+                <h3 style="color: #2c3e50; margin-bottom: 10px; font-size: 18px;">Required Components</h3>
+                <div id="componentsContainer"></div>
+                <h3 style="color: #2c3e50; margin-top: 25px; font-size: 18px;">Bode Plot</h3>
+                <img id="plotImage" src="" alt="Generated Bode Plot">
+            </div>
+        </main>
+    </div>
+    <script>
+        function formatVal(val, unit) {
+            if (val === undefined || val === null) return "N/A";
+            if (val >= 1e6) return (val / 1e6).toFixed(2) + " M" + unit;
+            if (val >= 1e3) return (val / 1e3).toFixed(2) + " k" + unit;
+            if (val < 1e-9) return (val * 1e12).toFixed(2) + " p" + unit;
+            if (val < 1e-6) return (val * 1e9).toFixed(2) + " n" + unit;
+            if (val < 1e-3) return (val * 1e6).toFixed(2) + " µ" + unit;
+            return val.toFixed(2) + " " + unit;
+        }
+        document.getElementById('calcForm').addEventListener('submit', async (e) => {
+            e.preventDefault(); 
+            
+            const btn = document.getElementById('submitBtn');
+            const errorBox = document.getElementById('errorBox');
+            const resultsDiv = document.getElementById('results');
+            
+            const freq = parseFloat(document.getElementById('frequency').value);
+            const cBase = parseFloat(document.getElementById('cBase').value);
+            const type = document.getElementById('filterType').value;
+            const order = parseInt(document.getElementById('order').value);
+            const qFactor = parseFloat(document.getElementById('qFactor').value);
+
+            btn.textContent = "Synthesizing...";
+            btn.disabled = true;
+            errorBox.style.display = 'none';
+            resultsDiv.style.display = 'none';
+
+            try {
+                const response = await fetch('/calculate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        frequency: freq, 
+                        c_base: cBase,
+                        filter_type: type,
+                        order: order,
+                        q_factor: qFactor
+                    })
+                });
+
+                if (!response.ok) {
+                    const errData = await response.json();
+                    throw new Error(errData.detail || "Server error occurred");
+                }
+
+                const data = await response.json();
+
+                document.getElementById('tfValue').textContent = data.transfer_function;
+                document.getElementById('plotImage').src = "data:image/png;base64," + data.plot_image_base64;
+
+                const compContainer = document.getElementById('componentsContainer');
+                compContainer.innerHTML = '';
+                
+                data.components.forEach(stage => {
+                    const stageDiv = document.createElement('div');
+                    stageDiv.className = 'component-stage';
+                    
+                    let compHTML = `<h4 style="color: #2c3e50; border-bottom: 2px solid #1abc9c; padding-bottom: 5px; margin-bottom: 15px;">${stage.stage}</h4>`;
+                    if (stage.Note) {
+                        compHTML += `<p style="font-size: 13px; color: #888; margin-top: -5px; margin-bottom: 10px;"><em>${stage.Note}</em></p>`;
+                    }
+
+                    compHTML += `<div class="comp-grid" style="display: flex; flex-direction: column; gap: 12px;">`;
+                    
+                    // Helper function to build a rich UI row for each component
+                    function buildRow(name, exact, std, links, unit) {
+                        if (exact === undefined) return '';
+                        let row = `<div style="padding: 10px; background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 6px;">
+                            <div style="margin-bottom: 8px;">
+                                <strong style="color: #2c3e50; font-size: 1.1em; display: inline-block; width: 40px;">${name}:</strong> 
+                                <span style="color:#7f8c8d; font-size: 0.9em; margin-right: 15px;">Ideal: ${formatVal(exact, unit)}</span>
+                                <strong style="color:#27ae60; font-size: 1.05em;">E24 Standard: ${formatVal(std, unit)}</strong>
+                            </div>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <span style="font-size: 12px; color: #555; font-weight: 500;">Buy on:</span>`;
+                        
+                        for (const [store, url] of Object.entries(links)) {
+                            row += `<a href="${url}" target="_blank" style="font-size: 12px; padding: 4px 10px; background: #34495e; color: white; text-decoration: none; border-radius: 4px; transition: background 0.2s;" onmouseover="this.style.background='#1abc9c'" onmouseout="this.style.background='#34495e'">${store} <i class="fas fa-external-link-alt" style="font-size: 10px; margin-left: 3px;"></i></a>`;
+                        }
+                        row += `</div></div>`;
+                        return row;
+                    }
+
+                    // Build rows for standard 2nd order components
+                    compHTML += buildRow('R1', stage.R1, stage.R1_std, stage.R1_links, 'Ω');
+                    compHTML += buildRow('R2', stage.R2, stage.R2_std, stage.R2_links, 'Ω');
+                    compHTML += buildRow('C1', stage.C1, stage.C1_std, stage.C1_links, 'F');
+                    compHTML += buildRow('C2', stage.C2, stage.C2_std, stage.C2_links, 'F');
+                    
+                    // Build rows for 1st order components
+                    compHTML += buildRow('R', stage.R, stage.R_std, stage.R_links, 'Ω');
+                    compHTML += buildRow('C', stage.C, stage.C_std, stage.C_links, 'F');
+                    
+                    compHTML += `</div>`;
+                    
+                    stageDiv.innerHTML = compHTML;
+                    compContainer.appendChild(stageDiv);
+                });
+
+                resultsDiv.style.display = 'block';
+
+            } catch (error) {
+                errorBox.textContent = error.message;
+                errorBox.style.display = 'block';
+            } finally {
+                btn.textContent = "Synthesize Circuit & Plot";
+                btn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>
