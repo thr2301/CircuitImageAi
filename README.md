@@ -123,13 +123,13 @@ The credentilas are stored in a json file that is called users.json .
 
 1. **Register/Login**  
    - Register a new account or login with existing credentials.
-   - <img width="1920" height="1041" alt="Image" src="https://github.com/user-attachments/assets/e0d334a6-8d8a-4b2d-a67e-7bde5030dab5" />
+    <img width="1920" height="1041" alt="Image" src="https://github.com/user-attachments/assets/e0d334a6-8d8a-4b2d-a67e-7bde5030dab5" />
    - Or login with existing credentials.
-   - <img width="1920" height="1043" alt="Image" src="https://github.com/user-attachments/assets/b235ebe1-f45a-40f9-8283-c0f6900661e0" />
+    <img width="1920" height="1043" alt="Image" src="https://github.com/user-attachments/assets/b235ebe1-f45a-40f9-8283-c0f6900661e0" />
 
 2. **Training**  
    - Start training or continue a previous one from the dashboard.
-   - <img width="1901" height="902" alt="Image" src="https://github.com/user-attachments/assets/37e947c3-3994-4726-84f4-d684a7fe75a9" />
+    <img width="1901" height="902" alt="Image" src="https://github.com/user-attachments/assets/37e947c3-3994-4726-84f4-d684a7fe75a9" />
    - Monitor **loss & accuracy per epoch** in real time.
    - Or you can load a previous training.
 
@@ -141,25 +141,28 @@ The credentilas are stored in a json file that is called users.json .
    - Click Compute & plot
    - Fill the Library and cell name
    - Click Download Netlist
-   - <img width="1905" height="900" alt="Image" src="https://github.com/user-attachments/assets/28078761-e8b3-4f95-9630-cf4775e971fd" />
+    <img width="1905" height="900" alt="Image" src="https://github.com/user-attachments/assets/28078761-e8b3-4f95-9630-cf4775e971fd" />
 
    - In case of resonator
    - Choose vowel
-   - Click Load & plot
    - Fill the Library & Cell name
+    <img width="1904" height="896" alt="Image" src="https://github.com/user-attachments/assets/853d2b41-a1b0-4e14-a287-8e3ec0a06808" />
+   - Choose topology
    - Click DownLoad Netlist
-   - <img width="1904" height="896" alt="Image" src="https://github.com/user-attachments/assets/853d2b41-a1b0-4e14-a287-8e3ec0a06808" />
-   - <img width="1905" height="903" alt="Image" src="https://github.com/user-attachments/assets/02cf0a9c-01ae-4024-83bb-13e76bf110a4" />
+   - Click Load & plot
+    <img width="1905" height="903" alt="Image" src="https://github.com/user-attachments/assets/02cf0a9c-01ae-4024-83bb-13e76bf110a4" />
      
 5. **Settings**
-   - Here the User can change his email, phone number or add a new password
-   - <img width="1914" height="888" alt="Image" src="https://github.com/user-attachments/assets/9445c1f5-b14b-4ade-8016-92ee48b245b2" />
-   - <img width="1896" height="895" alt="Image" src="https://github.com/user-attachments/assets/c53bbb2e-524f-4640-8521-89fcabcff0a7" />
+   - Here the User can change his email, phone number or add a new password.
+    <img width="1896" height="895" alt="Image" src="https://github.com/user-attachments/assets/c53bbb2e-524f-4640-8521-89fcabcff0a7" />
 
 6. **Filter Calculator**
-   - <img width="1900" height="895" alt="Image" src="https://github.com/user-attachments/assets/9ed6846c-ef79-4e39-8453-50b35c5b64d3" />
-   - <img width="1882" height="893" alt="Image" src="https://github.com/user-attachments/assets/b2318ba3-d88b-4125-94ad-5747c615f166" />
-   - <img width="1912" height="902" alt="Image" src="https://github.com/user-attachments/assets/8dfd7643-b8dc-4e4f-be96-6f28e281fd3a" />
+  - The user gives the target frequency, base capacitor, filter type ,order and quality factor.
+  - Then click synthesize filter and plot.
+   <img width="1882" height="893" alt="Image" src="https://github.com/user-attachments/assets/b2318ba3-d88b-4125-94ad-5747c615f166" />
+  - Then the user can see Bode plots for the magnitude and phase of the filter.
+    <img width="1912" height="902" alt="Image" src="https://github.com/user-attachments/assets/8dfd7643-b8dc-4e4f-be96-6f28e281fd3a" />
+  - Also he can see seethe values of the components and some suggested sites to buy them. 
 ---
 
 ## 📌 Requirements  
