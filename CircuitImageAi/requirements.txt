@@ -10,3 +10,4 @@ sqlalchemy
 pymysql
 passlib[bcrypt]
 cryptography
+matplotlib
