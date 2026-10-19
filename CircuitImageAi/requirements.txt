@@ -1,6 +1,6 @@
 fastapi
 fastapi-mail
-Its dangerous
+itsdangerous
 uvicorn
 torch
 torchvision
